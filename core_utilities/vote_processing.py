@@ -270,7 +270,7 @@ class VoteProcessing(GUI):
         selected_checks = [
             name
             for name in self.ballot_check_vars
-            if self.ballot_check_vars[name].get() == True
+            if self.ballot_check_vars[name].get()
         ]
 
         if len(selected_checks) == 0:
@@ -430,7 +430,7 @@ class VoteProcessing(GUI):
         # Run checks on the ballots to annotate problematic votes.
         inf("Performing ballot checks...")
 
-        do_check = lambda k: self.ballot_check_vars[k].get() == True
+        do_check = lambda k: self.ballot_check_vars[k].get()
 
         if do_check("duplicate"):
             inf("* Checking for duplicate votes...")

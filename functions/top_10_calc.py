@@ -302,7 +302,6 @@ def score_weight_by_ballot_size(
     expressed as a percentage."""
     non_blank_ballots = get_non_blank_titles(title_rows)
     full_ballot_size = max([len(row) for row in non_blank_ballots])
-    total_ballots = len(non_blank_ballots)
 
     ballot_weightings = [len(b) / full_ballot_size for b in non_blank_ballots]
     max_score = sum(ballot_weightings)

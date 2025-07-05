@@ -1,6 +1,5 @@
 from unittest import TestCase
 from datetime import datetime
-from pytz import timezone
 from functions.voting import (
     normalize_voting_data,
     process_voting_data,
@@ -82,7 +81,6 @@ class TestFunctionsVoting(TestCase):
         self.assertEqual("", norm_voting_data[2][2])
 
     def test_process_voting_data(self):
-        tz = timezone("Etc/UTC")
 
         voting_data = [
             ["Timestamp", "", "", "", "", "", "", "", "", ""],
@@ -153,7 +151,6 @@ class TestFunctionsVoting(TestCase):
             ballots = process_voting_data(invalid_csv_rows)
 
     def test_process_votes_csv_row(self):
-        tz = timezone("Etc/UTC")
 
         row = [
             "4/1/2024 9:00:00",

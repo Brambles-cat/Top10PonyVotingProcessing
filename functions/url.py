@@ -25,7 +25,6 @@ def normalize_youtube_url(url: str):
 
     # Use urllib to break the URL into its relevant components.
     url_components = urlparse(url)
-    netloc = url_components.netloc
     path = url_components.path
     query_params = parse_qs(url_components.query)
 

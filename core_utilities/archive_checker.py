@@ -369,8 +369,8 @@ class ArchiveStatusChecker(GUI):
                 age_limit = info_dict.get("age_limit")
                 availability = info_dict.get("availability")
                 geo_restricted = info_dict.get("geo_restricted")
-                content_rating = info_dict.get("content_rating")
-                status = info_dict.get("status")
+                # content_rating = info_dict.get("content_rating")
+                # status = info_dict.get("status")
 
                 # if status or content_rating:
                 #    print(status, content_rating)
@@ -658,7 +658,9 @@ class ArchiveStatusChecker(GUI):
             else archive_record["state"].split(" & ")
         )
         initial_states = [
-            States.get(state) for state in initial_states if States.get(state) != None
+            States.get(state)
+            for state in initial_states
+            if States.get(state) is not None
         ]
 
         video_title = archive_record["title"]

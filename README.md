@@ -8,7 +8,6 @@ Python GUI application to process the monthly voting for the Top 10 Pony Videos 
 * `data`: Directory containing data used by the application to make decisions, eg. allowed domains, uploader whitelists.
 * `functions`: Directory containing various Python functions used in the project, organized by purpose.
 * `images`: Directory containing images used in the application's GUI.
-* `modules`: Directory containing modules used in previous iterations of the project. Now largely obsolete.
 * `outputs`: Directory to which the application typically writes out data after processing.
 * `tests`: Contains unit tests for the project.
 * `test.py`: Runs unit tests for the project. Use `python test.py` to run.

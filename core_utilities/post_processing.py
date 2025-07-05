@@ -25,7 +25,7 @@ class PostProcessing(GUI):
     def gui(self, root):
         # Create application window
         root.title("Top 10 Pony Videos: Post-processing")
-        root.geometry(f"800x400")
+        root.geometry("800x400")
 
         # Create main frame
         main_frame = tk.Frame(root)
@@ -91,7 +91,8 @@ class PostProcessing(GUI):
     def handle_post_processing(self):
         """Handler for the "Run post-processing" button."""
         yt_api_key = GUI.get_api_key()
-        if not yt_api_key: return
+        if not yt_api_key:
+            return
 
         input_file_str = self.input_file_var.get()
         if input_file_str.strip() == "":

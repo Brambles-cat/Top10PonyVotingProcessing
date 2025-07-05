@@ -1,4 +1,4 @@
-from classes.exceptions import UnsupportedHostError, FetchRequestError
+from classes.exceptions import UnsupportedHostError
 from functions.manual_input import resolve
 
 

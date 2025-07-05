@@ -1,9 +1,8 @@
 import csv
 from datetime import datetime
 from pathlib import Path
-from functions.general import get_freq_table
 from functions.date import get_most_common_month_year, rel_anni_date_to_abs
-from functions.messages import suc, inf, err
+from functions.messages import inf, err
 
 # URL of Flynn's master archive of all Top 10 Pony Videos results, referenced by
 # some of the output spreadsheets.

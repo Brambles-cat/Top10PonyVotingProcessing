@@ -183,7 +183,7 @@ class TestFunctionsVoting(TestCase):
             "uploader": "Example Uploader",
             "upload_date": datetime(2024, 4, 1, 9, 0, 0),
             "duration": 300,
-            "platform": "PonyTube"
+            "platform": "PonyTube",
         }
         missing_fields = validate_video_data(data)
         self.assertEqual(0, len(missing_fields))
@@ -192,7 +192,7 @@ class TestFunctionsVoting(TestCase):
             "uploader": "Example Uploader",
             "upload_date": datetime(2024, 4, 1, 9, 0, 0),
             "duration": 300,
-            "platform": "PonyTube"
+            "platform": "PonyTube",
         }
         missing_fields = validate_video_data(data)
         self.assertEqual(1, len(missing_fields))

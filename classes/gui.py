@@ -1,7 +1,10 @@
-import tkinter as tk, dotenv, os
+import tkinter as tk
+import dotenv
+import os
 from PIL import Image, ImageTk
 
 dotenv.load_dotenv()
+
 
 class GUI:
     root = tk.Tk()
@@ -10,7 +13,7 @@ class GUI:
     _key_image = None
     _var_yt_api_key = None
     _frame_api_key = None
-    
+
     # Allows guis to use other GUI instances by their class names
     # Otherwise would leave the circular imports issue with the main menu
     def __init__(self):
@@ -70,7 +73,7 @@ class GUI:
         ).place(relx=0.95, rely=0.95, anchor="se")
 
         GUI.active_gui.ready = True
-    
+
     @staticmethod
     def get_api_key() -> str | None:
         """Get the Youtube API key from the key entry box or, if not present,

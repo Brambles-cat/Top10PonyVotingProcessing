@@ -1,8 +1,7 @@
 """Rule checks for ballots."""
 
-from pathlib import Path
 from fuzzywuzzy import fuzz
-from classes.voting import Ballot, Vote, Video
+from classes.voting import Ballot, Video
 
 
 def check_duplicates(ballots: list[Ballot]):
@@ -163,7 +162,11 @@ def check_ballot_uploader_diversity(ballots: list[Ballot], videos: dict[str, Vid
     """
     for ballot in ballots:
         unique_uploaders = set(
-            [videos[vote.url]["uploader"] for vote in ballot.votes if videos[vote.url].data is not None]
+            [
+                videos[vote.url]["uploader"]
+                for vote in ballot.votes
+                if videos[vote.url].data is not None
+            ]
         )
         broken_votes = [vote for vote in ballot.votes if videos[vote.url].data is None]
 

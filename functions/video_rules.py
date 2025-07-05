@@ -3,8 +3,6 @@ annotate any that fail the tests. Note that this is different from annotating a
 _vote_ for a video, which happens in `functions/ballot_rules.py`. Some of the
 vote checks rely on videos having been checked and annotated first."""
 
-from datetime import datetime
-from pytz import timezone
 from functions.date import get_month_year_bounds
 from classes.voting import Video
 

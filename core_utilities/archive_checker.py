@@ -1,7 +1,9 @@
 """Application for checking the status of videos in the master archive."""
 
 import tkinter as tk
-import os, csv, json
+import os
+import csv
+import json
 import threading
 import asyncio
 import aiohttp
@@ -16,7 +18,7 @@ from classes.gui import GUI
 from data.globals import ydl_opts
 from functions.general import (
     load_top_10_master_archive,
-    load_honorable_mentions_archive
+    load_honorable_mentions_archive,
 )
 from functions.messages import inf
 
@@ -56,7 +58,9 @@ class ArchiveStatusChecker(GUI):
         # Only load archive when it's not being checked so progress
         # label and output path is displayed properly upon revisiting
         if not self.running:
-            self.archive_records = load_top_10_master_archive(self.var_use_local_archive.get())
+            self.archive_records = load_top_10_master_archive(
+                self.var_use_local_archive.get()
+            )
             self.videos_to_fetch = len(self.archive_records)
 
         root.title("YouTube Video Status Checker")
@@ -127,7 +131,9 @@ class ArchiveStatusChecker(GUI):
 
         # Kept optional for debugging
         use_async = tk.Checkbutton(
-            settings_frame, text="Async Requests (faster)", variable=self.var_async_requests
+            settings_frame,
+            text="Async Requests (faster)",
+            variable=self.var_async_requests,
         )
 
         contrast_states = tk.Checkbutton(
@@ -135,7 +141,9 @@ class ArchiveStatusChecker(GUI):
         )
 
         use_local_archive = tk.Checkbutton(
-            settings_frame, text="Use Local Archive", variable=self.var_use_local_archive
+            settings_frame,
+            text="Use Local Archive",
+            variable=self.var_use_local_archive,
         )
 
         checker_subject_frame = tk.Frame(settings_frame)
@@ -187,21 +195,21 @@ class ArchiveStatusChecker(GUI):
             text="Master\nArchive",
             value="ma",
             variable=self.var_checker_subject,
-            command=self.change_checker_subject
+            command=self.change_checker_subject,
         )
         honorable_mentions = tk.Radiobutton(
             checker_subject_frame,
             text="Honorable\nMentions",
             value="hm",
             variable=self.var_checker_subject,
-            command=self.change_checker_subject
+            command=self.change_checker_subject,
         )
         generic_list = tk.Radiobutton(
             checker_subject_frame,
             text="Generic\nList",
             value="gl",
             variable=self.var_checker_subject,
-            command=self.change_checker_subject
+            command=self.change_checker_subject,
         )
 
         master_archive.pack(side="left")
@@ -259,7 +267,9 @@ class ArchiveStatusChecker(GUI):
                 state="readonly",
             ).grid(column=1, row=0, padx=5)
             ttk.Button(
-                self.input_file_frame, text="📁 Choose...", command=self.browse_input_file
+                self.input_file_frame,
+                text="📁 Choose...",
+                command=self.browse_input_file,
             ).grid(column=2, row=0, padx=5)
             self.input_file_frame.grid()
 
@@ -269,15 +279,19 @@ class ArchiveStatusChecker(GUI):
             self.checks_row_end_entry.config(state="readonly")
             self.start_button.config(state=tk.DISABLED)
             return self.progress_label.config(text="Progress: -/- videos checked")
-        
+
         for child in self.input_file_frame.winfo_children():
             child.destroy()  # RIP childs again
         self.input_file_frame.grid_remove()
 
         if subject == "hm":
-            self.archive_records = load_honorable_mentions_archive(self.var_use_local_archive.get())
+            self.archive_records = load_honorable_mentions_archive(
+                self.var_use_local_archive.get()
+            )
         else:
-            self.archive_records = load_top_10_master_archive(self.var_use_local_archive.get())
+            self.archive_records = load_top_10_master_archive(
+                self.var_use_local_archive.get()
+            )
 
         self.videos_to_fetch = len(self.archive_records)
 
@@ -365,13 +379,42 @@ class ArchiveStatusChecker(GUI):
                     states.append(States.AGE_RESTRICTED)
 
                 blocked_countries = info_dict.get("blocked_countries", [])
-                countries_where_a_significant_amount_of_bronies_probably_live_so_if_any_one_are_in_a_videos_banned_list_then_mark_it_as_blocked_oh_but_except_for_ones_that_are_known_for_blocking_a_lot_more_pony_videos = ["US", "GB", "DE", "FR", "IT", "ES", "NL", "BE", "SE", "NO", "DK", "FI", "AT", "CH", "PL", "PT", "GR", "CZ", "HU", "IE", "RO", "BG", "SK", "HR"]
+                countries_where_a_significant_amount_of_bronies_probably_live_so_if_any_one_are_in_a_videos_banned_list_then_mark_it_as_blocked_oh_but_except_for_ones_that_are_known_for_blocking_a_lot_more_pony_videos = [
+                    "US",
+                    "GB",
+                    "DE",
+                    "FR",
+                    "IT",
+                    "ES",
+                    "NL",
+                    "BE",
+                    "SE",
+                    "NO",
+                    "DK",
+                    "FI",
+                    "AT",
+                    "CH",
+                    "PL",
+                    "PT",
+                    "GR",
+                    "CZ",
+                    "HU",
+                    "IE",
+                    "RO",
+                    "BG",
+                    "SK",
+                    "HR",
+                ]
 
                 if (
                     geo_restricted
                     or (availability and "blocked" in availability)
                     or len(blocked_countries) >= 5
-                    or any(country in countries_where_a_significant_amount_of_bronies_probably_live_so_if_any_one_are_in_a_videos_banned_list_then_mark_it_as_blocked_oh_but_except_for_ones_that_are_known_for_blocking_a_lot_more_pony_videos for country in blocked_countries)
+                    or any(
+                        country
+                        in countries_where_a_significant_amount_of_bronies_probably_live_so_if_any_one_are_in_a_videos_banned_list_then_mark_it_as_blocked_oh_but_except_for_ones_that_are_known_for_blocking_a_lot_more_pony_videos
+                        for country in blocked_countries
+                    )
                 ):
                     states.append(States.BLOCKED)
 
@@ -417,7 +460,32 @@ class ArchiveStatusChecker(GUI):
 
                     region_restriction = video_details.get("regionRestriction", {})
 
-                    countries_where_a_significant_amount_of_bronies_probably_live_so_if_any_one_are_in_a_videos_banned_list_then_mark_it_as_blocked_oh_but_except_for_ones_that_are_known_for_blocking_a_lot_more_pony_videos = ["US", "GB", "DE", "FR", "IT", "ES", "NL", "BE", "SE", "NO", "DK", "FI", "AT", "CH", "PL", "PT", "GR", "CZ", "HU", "IE", "RO", "BG", "SK", "HR"]
+                    countries_where_a_significant_amount_of_bronies_probably_live_so_if_any_one_are_in_a_videos_banned_list_then_mark_it_as_blocked_oh_but_except_for_ones_that_are_known_for_blocking_a_lot_more_pony_videos = [
+                        "US",
+                        "GB",
+                        "DE",
+                        "FR",
+                        "IT",
+                        "ES",
+                        "NL",
+                        "BE",
+                        "SE",
+                        "NO",
+                        "DK",
+                        "FI",
+                        "AT",
+                        "CH",
+                        "PL",
+                        "PT",
+                        "GR",
+                        "CZ",
+                        "HU",
+                        "IE",
+                        "RO",
+                        "BG",
+                        "SK",
+                        "HR",
+                    ]
 
                     blocked_countries: list = (
                         [blocked_everywhere_indicator]
@@ -425,7 +493,15 @@ class ArchiveStatusChecker(GUI):
                         if "allowed" in region_restriction
                         else region_restriction.get("blocked", [])
                     )
-                    if len(blocked_countries) >= 5 or "allowed" in region_restriction or any(country in countries_where_a_significant_amount_of_bronies_probably_live_so_if_any_one_are_in_a_videos_banned_list_then_mark_it_as_blocked_oh_but_except_for_ones_that_are_known_for_blocking_a_lot_more_pony_videos for country in blocked_countries):
+                    if (
+                        len(blocked_countries) >= 5
+                        or "allowed" in region_restriction
+                        or any(
+                            country
+                            in countries_where_a_significant_amount_of_bronies_probably_live_so_if_any_one_are_in_a_videos_banned_list_then_mark_it_as_blocked_oh_but_except_for_ones_that_are_known_for_blocking_a_lot_more_pony_videos
+                            for country in blocked_countries
+                        )
+                    ):
                         states.append(States.BLOCKED)
 
                     return video_title, states, blocked_countries
@@ -513,7 +589,8 @@ class ArchiveStatusChecker(GUI):
         """Check the status of the archive or generic list and output a csv
         file of discrepancies or bad links respectively"""
         self.youtube_api_key = GUI.get_api_key()
-        if not self.youtube_api_key: return
+        if not self.youtube_api_key:
+            return
 
         output_file_dir = self.var_output_file.get()
         if not output_file_dir:
@@ -522,7 +599,9 @@ class ArchiveStatusChecker(GUI):
         self.output_csv_path = output_file_dir
 
         if "cookiefile" not in ydl_opts:
-            inf("Note: Couldn't find data/cookies.txt file. Some requests may yield no data.")
+            inf(
+                "Note: Couldn't find data/cookies.txt file. Some requests may yield no data."
+            )
         self.ydl = YoutubeDL(ydl_opts)
         checker_subject = self.var_checker_subject.get()
 
@@ -656,7 +735,9 @@ class ArchiveStatusChecker(GUI):
                 )
                 updated = True
 
-            if (len(video_states) or len(initial_states)) and archive_record["alternate_link"]:
+            if (len(video_states) or len(initial_states)) and archive_record[
+                "alternate_link"
+            ]:
                 video_url = archive_record["alternate_link"]
 
                 _, video_states, blocked_countries = await self.get_video_status(
@@ -673,11 +754,7 @@ class ArchiveStatusChecker(GUI):
                     )
                 )
 
-                if (
-                    _
-                    and alt_useable
-                    and archive_record["found"].lower() == "needed"
-                ):
+                if _ and alt_useable and archive_record["found"].lower() == "needed":
                     self.updated_rows.append(
                         [
                             "NOTE",
@@ -852,7 +929,12 @@ class ArchiveStatusChecker(GUI):
             except:
                 self.checks_row_end_entry.delete(0, tk.END)
                 self.checks_row_end_entry.insert(
-                    0, len(self.checking_range) if generic else len(self.archive_records) + 1
+                    0,
+                    (
+                        len(self.checking_range)
+                        if generic
+                        else len(self.archive_records) + 1
+                    ),
                 )
                 self.videos_to_fetch = (
                     len(self.checking_range if generic else self.archive_records)

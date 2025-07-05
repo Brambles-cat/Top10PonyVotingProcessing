@@ -13,7 +13,6 @@ from functions.top_10_calc import (
     get_titles_to_urls_mapping,
     get_titles_to_uploaders,
     create_top10_csv_data,
-    calc_ranked_records,
     score_by_total_votes,
     score_weight_by_ballot_size,
 )
@@ -55,7 +54,7 @@ class Top10Calculator(GUI):
 
     def gui(self, root):
         root.title("Top 10 Pony Videos: Top 10 Calculator")
-        root.geometry(f"860x640")
+        root.geometry("860x640")
 
         # Create main frame
         main_frame = tk.Frame(root)
@@ -172,7 +171,8 @@ class Top10Calculator(GUI):
     def handle_calc(self):
         """Handler for the "Calculate Top 10" button."""
         youtube_api_key = GUI.get_api_key()
-        if not youtube_api_key: return
+        if not youtube_api_key:
+            return
 
         input_csv_path = self.input_file_var.get()
         urls_csv_path = self.shifted_file_var.get()
@@ -244,7 +244,7 @@ class Top10Calculator(GUI):
 
         if len(title_rows) != len(url_rows):
             raise Exception(
-                f"Error while processing voting data; number of title and URL rows do not match"
+                "Error while processing voting data; number of title and URL rows do not match"
             )
 
         # Create a dictionary which maps video titles to URLs for each title in the

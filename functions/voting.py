@@ -2,8 +2,6 @@
 
 import csv
 from pathlib import Path
-from datetime import datetime
-from pytz import timezone
 from functions.date import parse_votes_csv_timestamp, format_votes_csv_timestamp
 from functions.url import is_youtube_url, normalize_youtube_url
 from classes.voting import Ballot, Vote, Video
@@ -113,7 +111,7 @@ def fetch_video_data_for_ballots(
                 video.annotations.add("UNSUPPORTED HOST")
             except VideoUnavailableError:
                 video.annotations.add("VIDEO UNAVAILABLE")
-            except Exception as e:
+            except Exception:
                 video.annotations.add("COULD NOT FETCH")
 
             # Validate the fetched data to ensure it has all the fields we need

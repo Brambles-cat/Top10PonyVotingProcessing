@@ -1,7 +1,6 @@
-import csv, os
 from functions.general import load_text_data
 from functions.config import load_config_json
-from functions.messages import suc, inf, err
+from functions.messages import suc, inf
 from classes.fetcher import Fetcher
 from classes.fetch_services import YouTubeFetchService, YtDlpFetchService
 from classes.caching import FileCache

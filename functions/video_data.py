@@ -1,5 +1,5 @@
 from functions.services import get_fetcher
-from functions.messages import suc, inf, err
+from functions.messages import err
 
 
 def fetch_videos_data(yt_api_key: str, urls: list[str]) -> dict[str, dict]:
@@ -12,7 +12,7 @@ def fetch_videos_data(yt_api_key: str, urls: list[str]) -> dict[str, dict]:
         video_data = None
         try:
             video_data = fetcher.fetch(url)
-        except Exception as e:
+        except Exception:
             err(f"WARNING: Could not fetch data for URL {url}")
 
         videos_data[url] = video_data

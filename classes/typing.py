@@ -1,5 +1,5 @@
 from typing import TypedDict
-from collections.abc import Callable
+
 
 class ArchiveRecord(TypedDict):
     year: str
@@ -13,6 +13,7 @@ class ArchiveRecord(TypedDict):
     alternate_link: str
     found: str
     notes: str
+
 
 class VideoData(TypedDict):
     title: str

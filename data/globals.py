@@ -22,14 +22,14 @@ ydl_opts = {
     "allowed_extractors": [
         "twitter",
         "Newgrounds",
-        "lbry", # Odysee
+        "lbry",  # Odysee
         "TikTok",
-        "PeerTube", # pony.tube & pt.thishorsie.rocks
+        "PeerTube",  # pony.tube & pt.thishorsie.rocks
         "vimeo",
         "BiliBili",
         "dailymotion",
         "Bluesky",
-        "generic", # ytdlp may fall back to the generic extractor if another fails
+        "generic",  # ytdlp may fall back to the generic extractor if another fails
     ],
 }
 

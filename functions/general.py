@@ -1,6 +1,7 @@
 """General-use functions."""
 
-import csv, requests, os
+import csv
+import requests
 from functions.messages import suc, inf
 from random import randint
 from pathlib import Path
@@ -9,7 +10,7 @@ from data.globals import (
     honorable_mentions_csv_url,
     local_honorable_mentions_csv_path,
     local_top_10_archive_csv_path,
-    top_10_archive_csv_url
+    top_10_archive_csv_url,
 )
 
 
@@ -53,7 +54,7 @@ def sample_item_without_replacement(items: list):
     return sampled_item
 
 
-def load_top_10_master_archive(local_first = True) -> list[ArchiveRecord]:
+def load_top_10_master_archive(local_first=True) -> list[ArchiveRecord]:
     """Load a copy of the Top 10 Pony Videos List spreadsheet. Load a local copy if local_first is True,
     or if there's no such copy on the filesystem, export one from Google Sheets and
     save it first.
@@ -74,13 +75,14 @@ def load_top_10_master_archive(local_first = True) -> list[ArchiveRecord]:
             ) as file:
                 inf("Loading local copy of master Top 10 Pony Videos archive...")
                 reader = csv.DictReader(file)
-                reader.fieldnames = [field_name.lower().replace(" ", "_") for field_name in reader.fieldnames]
+                reader.fieldnames = [
+                    field_name.lower().replace(" ", "_")
+                    for field_name in reader.fieldnames
+                ]
                 archive_records = [record for record in reader]
                 break
         except Exception:
-            inf(
-                "Downloading a copy of the master Top 10 Pony Videos archive..."
-            )
+            inf("Downloading a copy of the master Top 10 Pony Videos archive...")
             response = requests.get(top_10_archive_csv_url)
             Path(local_top_10_archive_csv_path).write_text(
                 response.text, encoding="utf-8"
@@ -92,7 +94,7 @@ def load_top_10_master_archive(local_first = True) -> list[ArchiveRecord]:
     return archive_records
 
 
-def load_honorable_mentions_archive(local_first = True) -> list[ArchiveRecord]:
+def load_honorable_mentions_archive(local_first=True) -> list[ArchiveRecord]:
     """Load a copy of the honorable mentions spreadsheet. Load a local copy if local_first is True,
     or if there's no local copy on the filesystem, export one from Google Sheets and
     save it first.
@@ -114,13 +116,14 @@ def load_honorable_mentions_archive(local_first = True) -> list[ArchiveRecord]:
                 inf("Loading local copy of honorable mentions archive...")
                 reader = csv.DictReader(file)
                 reader.fieldnames[reader.fieldnames.index("Original Link")] = "link"
-                reader.fieldnames = [field_name.lower().replace(" ", "_") for field_name in reader.fieldnames]
+                reader.fieldnames = [
+                    field_name.lower().replace(" ", "_")
+                    for field_name in reader.fieldnames
+                ]
                 archive_records = [record for record in reader]
                 break
         except Exception:
-            inf(
-                "Downloading a copy of the honorable mentions archive one..."
-            )
+            inf("Downloading a copy of the honorable mentions archive one...")
             response = requests.get(honorable_mentions_csv_url)
             Path(local_honorable_mentions_csv_path).write_text(
                 response.text, encoding="utf-8"

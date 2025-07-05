@@ -2,7 +2,9 @@
 different site), create a class that implements the `can_fetch`, `request`,
 and `parse` methods."""
 
-import re, pytz, hashlib
+import re
+import pytz
+import hashlib
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs
 from googleapiclient.discovery import build
@@ -11,7 +13,7 @@ from functions.date import convert_iso8601_duration_to_seconds
 from functions.url import is_youtube_url
 from functions.messages import err
 from data.globals import ydl_opts
-from classes.exceptions import FetchRequestError, FetchParseError, VideoUnavailableError
+from classes.exceptions import FetchRequestError, VideoUnavailableError
 from classes.typing import VideoData
 from functions.messages import inf
 
@@ -84,7 +86,7 @@ class YouTubeFetchService:
 
         if not response["items"]:
             raise VideoUnavailableError(
-                f"Response from YouTube Data API does not contain any items"
+                "Response from YouTube Data API does not contain any items"
             )
 
         response_item = response["items"][0]
@@ -119,7 +121,9 @@ class YtDlpFetchService:
     def __init__(self, accepted_domains: list[str]):
         self.accepted_domains = accepted_domains
         if "cookiefile" not in ydl_opts:
-            inf("Note: Couldn't find data/cookies.txt file. Some requests may yield no data.")
+            inf(
+                "Note: Couldn't find data/cookies.txt file. Some requests may yield no data."
+            )
 
     def can_fetch(self, url: str) -> bool:
         """Return True if the URL contains an accepted domain (other than
@@ -165,7 +169,9 @@ class YtDlpFetchService:
                     url[0 : url.rfind("/")].endswith("/video")
                     and int(url[url.rfind("/") + 1 :]) != 1
                 ):
-                    err("This X post has several videos and the fetched duration is innacurate. So it has been ignored")
+                    err(
+                        "This X post has several videos and the fetched duration is innacurate. So it has been ignored"
+                    )
                     response["duration"] = None
 
             case "newgrounds":
@@ -180,11 +186,13 @@ class YtDlpFetchService:
 
             case "bilibili":
                 response["channel"] = response.get("uploader")
-            
+
             case "bsky":
                 site = "bluesky"
                 uploader = response.get("uploader_id")
-                response["channel"] = uploader[:uploader.index(".")] if uploader else None
+                response["channel"] = (
+                    uploader[: uploader.index(".")] if uploader else None
+                )
                 response["title"] = (
                     f"Bluesky post by {response['channel']} ({self.hash_str(response['title'])})"
                 )

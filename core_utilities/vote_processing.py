@@ -1,6 +1,8 @@
 """Top 10 Pony Video Squeezer 3000 (vote processing) application."""
 
-import csv, os, sys
+import csv
+import os
+import sys
 from datetime import datetime
 from pathlib import Path
 import tkinter as tk
@@ -134,7 +136,7 @@ class VoteProcessing(GUI):
             },
             "platform": {
                 "label": "Platform Check",
-                "tooltip": "Annotate ballots that contain votes for non-youtube videos"
+                "tooltip": "Annotate ballots that contain votes for non-youtube videos",
             },
             "fuzzy": {
                 "label": "Fuzzy Check",
@@ -257,7 +259,8 @@ class VoteProcessing(GUI):
         the CSV with problematic votes labeled.
         """
         youtube_api_key = GUI.get_api_key()
-        if not youtube_api_key: return
+        if not youtube_api_key:
+            return
 
         selected_csv_file = self.csv_entry_var.get()
         if selected_csv_file.strip() == "":
@@ -344,7 +347,7 @@ class VoteProcessing(GUI):
                 f"Warning: the input CSV contains votes that do not fall within the current month ({current_month_year_str})."
             )
 
-        inf(f"Date information:")
+        inf("Date information:")
         inf(f"* Upload month:  {upload_month_year_str}")
         inf(f"* Voting month:  {voting_month_year_str}")
         inf(f"* Current month: {current_month_year_str}")
@@ -414,15 +417,15 @@ class VoteProcessing(GUI):
         uploader_whitelist = load_text_data(config["paths"]["uploader_whitelist"])
         check_uploader_whitelist(videos_with_data.values(), uploader_whitelist)
 
-        inf(f"* Checking video upload dates...")
+        inf("* Checking video upload dates...")
         check_upload_date(
             videos_with_data.values(), upload_month_date.month, upload_month_date.year
         )
 
-        inf(f"* Checking video durations...")
+        inf("* Checking video durations...")
         check_duration(videos_with_data.values())
 
-        suc(f"Video checks complete.")
+        suc("Video checks complete.")
 
         # Run checks on the ballots to annotate problematic votes.
         inf("Performing ballot checks...")
@@ -466,10 +469,10 @@ class VoteProcessing(GUI):
             inf("* Checking for ballot uploader diversity...")
             check_ballot_uploader_diversity(ballots, videos)
 
-        suc(f"Ballot checks complete.")
+        suc("Ballot checks complete.")
 
         output_csv_path_str = config["paths"]["output"]
-        inf(f"Writing annotated ballot data...")
+        inf("Writing annotated ballot data...")
         output_csv_data = generate_annotated_csv_data(ballots, videos)
         output_csv_path = Path(output_csv_path_str)
         with output_csv_path.open("w", newline="", encoding="utf-8") as output_csv_file:
@@ -483,7 +486,7 @@ class VoteProcessing(GUI):
         # contains only video titles) to the URLs that correspond to those titles.
         shifted_cells_path = Path(config["paths"]["shifted_cells"])
 
-        inf(f'Writing "shifted cells" CSV...')
+        inf('Writing "shifted cells" CSV...')
         shifted_voting_data = shift_columns(normalized_voting_data)
 
         with (

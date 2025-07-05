@@ -1,5 +1,4 @@
 from unittest import TestCase
-from pytz import timezone
 from datetime import datetime
 from functions.date import (
     parse_votes_csv_timestamp,

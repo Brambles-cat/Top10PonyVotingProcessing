@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import ttk, filedialog
 from tkinter.font import Font
 from PIL import ImageTk, Image
+from functions.general import output_path, resource_path
 from functions.post_processing import (
     generate_top10_archive_records,
     generate_hm_archive_records,
@@ -32,7 +33,7 @@ class PostProcessing(GUI):
         main_frame.pack(expand=True, fill="both", padx=10, pady=10)
 
         # Create banner image
-        self.banner_image = ImageTk.PhotoImage(Image.open("images/post-processing.png"))
+        self.banner_image = ImageTk.PhotoImage(Image.open(resource_path("images/post-processing.png")))
         banner_label = tk.Label(main_frame, image=self.banner_image)
         banner_label.pack()
 
@@ -45,7 +46,7 @@ class PostProcessing(GUI):
         input_file_frame = tk.Frame(main_frame)
         input_file_label = tk.Label(input_file_frame, text="Input CSV file:")
 
-        default_input_file = "outputs/calculated_top_10.csv"
+        default_input_file = output_path("calculated_top_10.csv")
         self.input_file_var = tk.StringVar()
         self.input_file_var.set(default_input_file)
         input_file_entry = ttk.Entry(
@@ -99,7 +100,6 @@ class PostProcessing(GUI):
             return
 
         input_file_path = Path(input_file_str)
-        output_dir = "outputs"
         output_file_prefix = "post-processed-"
 
         calc_records = []
@@ -163,10 +163,10 @@ class PostProcessing(GUI):
             history_videos_data,
         )
 
-        top10_archive_file = f"{output_dir}/{output_file_prefix}top10-archive.csv"
-        hm_archive_file = f"{output_dir}/{output_file_prefix}hm-archive.csv"
-        sharable_file = f"{output_dir}/{output_file_prefix}sharable.csv"
-        desc_file = f"{output_dir}/{output_file_prefix}description.txt"
+        top10_archive_file = output_path(f"{output_file_prefix}top10-archive.csv")
+        hm_archive_file = output_path(f"{output_file_prefix}hm-archive.csv")
+        sharable_file = output_path(f"{output_file_prefix}sharable.csv")
+        desc_file = output_path(f"{output_file_prefix}description.txt")
 
         generate_top10_archive_csv(top10_archive_records, top10_archive_file)
         suc(f"Wrote top 10 archive data to {top10_archive_file}.")

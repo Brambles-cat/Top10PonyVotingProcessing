@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import Image, ImageTk, ImageSequence
 from tkinter.font import Font
 from tkinter import ttk
+from functions.general import resource_path
 from classes.gui import GUI
 import math
 
@@ -43,7 +44,7 @@ class MainMenu(GUI):
 
         self.gif_frames = [
             ImageTk.PhotoImage(frame.copy())
-            for frame in ImageSequence.Iterator(Image.open("images/ttpvp.gif"))
+            for frame in ImageSequence.Iterator(Image.open(resource_path("images/ttpvp.gif")))
         ]
         self.gif_label = tk.Label(root, image=self.gif_frames[self.i_frame])
         self.gif_label.pack()

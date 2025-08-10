@@ -24,7 +24,7 @@ from functions.date import (
     get_preceding_month_date,
     get_most_common_month_year,
 )
-from functions.general import load_top_10_master_archive
+from functions.general import load_top_10_master_archive, output_path, resource_path
 from functions.video_data import fetch_videos_data
 from functions.messages import suc, inf, err
 from classes.gui import GUI
@@ -76,7 +76,7 @@ class Top10Calculator(GUI):
         main_frame.columnconfigure(0, weight=1)
 
         # Create banner image
-        self.banner_image = ImageTk.PhotoImage(Image.open("images/top-10-calc-ts.png"))
+        self.banner_image = ImageTk.PhotoImage(Image.open(resource_path("images/top-10-calc-ts.png")))
         banner_label = tk.Label(main_frame, image=self.banner_image)
         banner_label.grid(row=0, column=0)
 
@@ -91,7 +91,7 @@ class Top10Calculator(GUI):
         # Create "Choose Input CSV..." control
         input_file_label = tk.Label(file_selectors_frame, text="Input CSV file:")
 
-        default_input_file = "outputs/processed.csv"
+        default_input_file = output_path("processed.csv")
         self.input_file_var = tk.StringVar()
         self.input_file_var.set(default_input_file)
         input_file_entry = ttk.Entry(
@@ -111,7 +111,7 @@ class Top10Calculator(GUI):
         # Create "Choose shifted cells..." control
         shifted_file_label = tk.Label(file_selectors_frame, text="Shifted cells file:")
 
-        default_shifted_file = "outputs/shifted_cells.csv"
+        default_shifted_file = output_path("shifted_cells.csv")
         self.shifted_file_var = tk.StringVar()
         self.shifted_file_var.set(default_shifted_file)
         shifted_file_entry = ttk.Entry(
@@ -313,7 +313,7 @@ class Top10Calculator(GUI):
             )
 
             # Write the calculated top 10 to a CSV file.
-            output_csv_path_str = f"outputs/calculated_top_10{algo['file_suffix']}.csv"
+            output_csv_path_str = output_path(f"calculated_top_10{algo['file_suffix']}.csv")
             output_csv_path = Path(output_csv_path_str)
             output_csv_paths.append(output_csv_path)
 

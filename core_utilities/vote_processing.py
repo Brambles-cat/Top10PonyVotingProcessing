@@ -8,8 +8,8 @@ from tkinter import ttk, filedialog
 from tkinter.font import Font
 from PIL import ImageTk, Image
 from tktooltip import ToolTip
-from functions.general import load_text_data, load_top_10_master_archive
-from functions.config import load_config_json
+from functions.general import load_text_data, load_top_10_master_archive, resource_path
+from config.config import load_config_json
 from functions.voting import (
     load_votes_csv,
     normalize_voting_data,
@@ -55,7 +55,7 @@ window_config = {
     "title": "Top 10 Pony Video Squeezer 3000",
     "width": 800,
     "height": 600,
-    "banner_image": "images/vote-processing-fs.png",
+    "banner_image": resource_path("images/vote-processing-fs.png"),
 }
 
 
@@ -67,7 +67,7 @@ class VoteProcessing(GUI):
         # .ico files unfortunately don't work on Linux due to a known Tkinter issue.
         # Current fix is simply to not use the icon on Linux.
         if not sys.platform.startswith("linux"):
-            root.iconbitmap(config["paths"]["icon"])
+            root.iconbitmap(resource_path(config["paths"]["icon"]))
 
         # Create main frame
         main_frame = tk.Frame(root)

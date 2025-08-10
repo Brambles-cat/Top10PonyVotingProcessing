@@ -1,5 +1,6 @@
 import tkinter as tk, dotenv, os
 from PIL import Image, ImageTk
+from functions.general import resource_path
 
 dotenv.load_dotenv()
 
@@ -57,7 +58,7 @@ class GUI:
 
         if not GUI._key_image:
             GUI._key_image = ImageTk.PhotoImage(
-                Image.open("images/key.png").resize((30, 30))
+                Image.open(resource_path("images/key.png")).resize((30, 30))
             )
             GUI._var_yt_api_key = tk.StringVar()
 

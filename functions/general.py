@@ -1,11 +1,12 @@
 """General-use functions."""
 
-import csv, requests, os
+import csv, requests, os, sys
 from functions.messages import suc, inf
 from random import randint
 from pathlib import Path
 from classes.typing import ArchiveRecord
 from data.globals import (
+    unfrozen,
     honorable_mentions_csv_url,
     local_honorable_mentions_csv_path,
     local_top_10_archive_csv_path,
@@ -19,7 +20,7 @@ def load_text_data(path_str: str) -> list[str]:
     ignored. The file data is expected to be in UTF-8 format and will be decoded
     as such."""
 
-    path = Path(path_str)
+    path = Path(resource_path(path_str))
     with path.open("r", encoding="utf-8") as file:
         lines = [line for line in file if line.strip() != ""]
         lines = [line.strip("\n") for line in lines]
@@ -132,3 +133,13 @@ def load_honorable_mentions_archive(local_first = True) -> list[ArchiveRecord]:
             )
 
     return archive_records
+
+
+def resource_path(relative_path):
+    """Get the working path to a resource"""
+    return relative_path if unfrozen else os.path.join(sys._MEIPASS, relative_path)
+
+
+def output_path(file_name):
+    """Get the working path to an output file"""
+    return "outputs/" + file_name if unfrozen else file_name

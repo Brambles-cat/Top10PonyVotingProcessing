@@ -1,5 +1,5 @@
 from functions.general import load_text_data
-from functions.config import load_config_json
+from config.config import load_config_json
 from functions.messages import suc, inf, err
 from classes.fetcher import Fetcher
 from classes.fetch_services import YouTubeFetchService, YtDlpFetchService, DerpibooruFetchService

@@ -5,6 +5,7 @@ TODO: The CSVEditor is deprecated and this file is no longer in use. Can be remo
 import csv
 import tkinter as tk
 from tkinter import ttk, filedialog
+from functions.general import output_path
 
 
 class CSVEditor(tk.Frame):
@@ -92,7 +93,7 @@ class CSVEditor(tk.Frame):
 
     def load_processed_csv(self):
         """Load the "processed" CSV file into the editor."""
-        processed_csv_file = "outputs/processed.csv"
+        processed_csv_file = output_path("processed.csv")
         self.load_csv(processed_csv_file)
 
     def display_csv(self):

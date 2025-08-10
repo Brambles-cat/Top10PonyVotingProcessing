@@ -4,8 +4,8 @@
         "icon": "images/icon.ico",
         "uploader_blacklist": "data/uploader_blacklist.txt",
         "accepted_domains": "data/accepted_domains.txt",
-        "shifted_cells": "outputs/shifted_cells.csv",
-        "output": "outputs/processed.csv",
+        "shifted_cells": "shifted_cells.csv",
+        "output": "processed.csv",
         "cache": "cache.json"
     }
 }

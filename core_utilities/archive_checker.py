@@ -16,7 +16,9 @@ from classes.gui import GUI
 from data.globals import ydl_opts
 from functions.general import (
     load_top_10_master_archive,
-    load_honorable_mentions_archive
+    load_honorable_mentions_archive,
+    output_path,
+    resource_path
 )
 from functions.messages import inf
 
@@ -65,7 +67,7 @@ class ArchiveStatusChecker(GUI):
         root.grid_columnconfigure(0, weight=1)
 
         # Create banner image
-        self.banner_image = ImageTk.PhotoImage(Image.open("images/archive-checker.png"))
+        self.banner_image = ImageTk.PhotoImage(Image.open(resource_path("images/archive-checker.png")))
 
         banner_label = tk.Label(root, image=self.banner_image, pady=5)
         self.input_file_frame = tk.Frame(root)
@@ -87,7 +89,7 @@ class ArchiveStatusChecker(GUI):
         # Output File Frame
         output_file_label = tk.Label(output_file_frame, text="Output CSV file:")
 
-        self.default_output_file = "outputs/status_checker_results"
+        self.default_output_file = output_path("status_checker_results")
 
         if os.path.exists(f"{self.default_output_file}.csv"):
             i = 2
